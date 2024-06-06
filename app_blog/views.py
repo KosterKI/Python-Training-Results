@@ -8,7 +8,7 @@ from app_blog.models import Article, Category
 class HomePageView(ListView):
  model = Article
  template_name = 'index.html'
- context_object_name = 'articles'
+ context_object_name = 'categories'
  
  def get_context_data(self, **kwargs):
      context = super(HomePageView, self).get_context_data(**kwargs)
@@ -23,7 +23,7 @@ class HomePageView(ListView):
  
 class ArticleDetail(DateDetailView):
      model = Article
-     template_name = 'article-detail.html'
+     template_name = 'articles-detail.html'
      context_object_name = 'item'
      date_field = 'pub_date'
      query_pk_and_slug = True

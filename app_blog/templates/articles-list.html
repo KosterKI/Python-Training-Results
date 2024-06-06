@@ -1,32 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Публікації</title>
-</head>
-<body>
-    <br/>
+{% extends "base.html" %}
 
-    {% if category %} {{ category }} {% endif %}
+{% block content %}
+    {% spaceless %}
+    <style>
+        .articles-row {
+            border: 1px solid #060606;
+            padding: 10px;
+            margin: 10px auto; /* Center the articles-row horizontally */
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+            max-width: 800px; /* Set a max-width for better layout control */
+        }
+        .articles-row:hover {
+            background-color: #effb05;
+        }
+        .articles-row h4 {
+            margin: 0 0 10px 0;
+            color: #141313;
+        }
+        .articles-row a {
+            text-decoration: none;
+        }
+        .articles-row a:hover {
+            text-decoration: underline;
+        }
+        .articles-row h5 {
+            color: #090909;
+        }
+        .container-image {
+            margin-top: 10px;
+            text-align: center; /* Center the image container */
+        }
+        .img {
+            max-width: 100%;
+            height: auto;
+            display: inline-block; /* Ensure the image is centered */
+        }
+        .clearfix {
+            clear: both;
+        }
+        h1, h2 {
+            color: #0c0c0c;
+            text-align: center; /* Center the headings */
+        }
+    </style>
+
+    <h1>Публікації</h1>
+    <br/>
+    {% if category %} <h2>{{ category }}</h2> {% endif %}
 
     {% for item in items %}
     <div class="articles-row">
         <a href="{{ item.get_absolute_url }}">
             <h4>{{ item.title }}</h4>
         </a>
-        <h5>
-            {{ item.pub_date|date:"j E Y"|safe|linebreaks }}
-        </h5>
-        <p>
-            {{ 
-item.description|safe|escape|striptags|truncatewords_html:32 }}
-        </p>
+        <h5>{{ item.pub_date|date:"j E Y"|safe|linebreaks }}</h5>
+        <p>{{ item.description|safe|escape|striptags|truncatewords_html:32 }}</p>
         <div class="container-image">
-            <img class="img" src="{{ item.images.all.0.image.url }}"
-alt="" />
+            <img class="img" src="{{ item.images.all.0.image.url }}" alt=""/>
         </div>
         <div class='clearfix'></div>
     </div>
     {% endfor %}
-    </body>
-    </html>
+    {% endspaceless %}
+{% endblock %}
+

@@ -31,7 +31,7 @@ class ArticleAdmin(admin.ModelAdmin):
         prepopulated_fields = {'slug': ('title',)}
         raw_id_fields = ('category',)
         fieldsets = (
-        ('', {'fields': ('pub_date', 'title', 'description', 'main_page'),
+        ('', {'fields': ('pub_date', 'title', 'description', 'main_page','category'),
  }),
  ((u'Додатково'), {
  'classes': ('grp-collapse grp-closed',),

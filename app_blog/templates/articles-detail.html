@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% spaceless %}
+    <style>
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            background-color: #ffeb3b;
+            border-radius: 5px;
+            list-style: none;
+            margin: 0;
+        }
+        .breadcrumb li {
+            display: inline;
+            margin-right: 10px;
+        }
+        .breadcrumb li a {
+            color: #10100f;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+        .breadcrumb li a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb li::after {
+            content: ">";
+            margin-left: 10px;
+            color: #000000;
+        }
+        .breadcrumb li:last-child::after {
+            content: "";
+        }
+        .breadcrumb li:last-child {
+            font-weight: bold;
+            color: #070707;
+        }
+        h3 {
+            color: #000000;
+            text-align: center;
+            margin-top: 20px;
+        }
+        h5 {
+            color: #010101;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content-description {
+            padding: 20px;
+            background-color: #fffde7;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .content-description p {
+            color: #212121;
+        }
+        .content-description img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+    <div>
+        <ol class="breadcrumb">
+            <li><a href="/">Головна</a></li>
+            <li><a href="{% url 'articles-list' %}">Публікації</a></li>
+            <li>{{ item.title|upper }}</li>
+        </ol>
+        <div>
+            <h3>{{ item.title }}</h3>
+            <h5>{{ item.pub_date|date:"d E Y"|safe|linebreaks }}</h5>
+        </div>
+        <div class="content-description">
+            {{ item.description|escape|safe }}
+            {% if item.images.all %}
+                {% include 'fotorama.html' with images=images %}
+            {% endif %}
+        </div>
+        <div class='clearfix'></div>
+    </div>
+    {% endspaceless %}
+{% endblock %}
